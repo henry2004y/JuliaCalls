@@ -1,6 +1,6 @@
 module test1
 
-use iso_c_binding
+!use iso_c_binding
 
 implicit none
 

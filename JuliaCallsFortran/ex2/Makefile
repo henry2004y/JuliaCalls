@@ -15,5 +15,10 @@ OBJECTS=$(SOURCES:.c=.o)
 lib: $(OBJECTS)
 	$(FC) -o $(SHARED_LIB) $(OBJECTS) -shared -fPIC
 
+main: $(OBJECTS)
+	make lib
+	$(FC) -c main.f90
+	$(FC) -o test.exe $(SHARED_LIB) main.o $(OBJECTS)
+
 clean:
-	rm *.so *.mod
+	rm *.so *.mod *.o test.exe
