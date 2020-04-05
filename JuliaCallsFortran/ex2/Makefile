@@ -9,7 +9,7 @@ SHARED_LIB = libfoo.so
 SOURCES=Modtest1.f90 Modtest2.f90
 OBJECTS=$(SOURCES:.c=.o)
 
-.c.o:
+.f90.o:
 	$(FC) $(CFLAGS) $< -o $@
 
 lib: $(OBJECTS)
