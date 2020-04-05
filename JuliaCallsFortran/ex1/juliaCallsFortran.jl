@@ -10,9 +10,11 @@ b1 = Int32[0]
 r1 = ccall((:__simplemodule_MOD_foo, "./simplemodule.so"), Int32,
             (Ptr{Int32},), Int32[1])
 
-
 println(r1)
 println()
+
+r1 = ccall((:__simplemodule_MOD_factorial, "./simplemodule.so"), Float32,
+            (Ptr{Int32},), Int32[1])
 
 x1 = Int32(7)
 

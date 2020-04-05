@@ -17,6 +17,11 @@ interoperability with other languages.
 $ gfortran simplemodule.f95 -o simplemodule.so -shared -fPIC
 ```
 
+If there are multiple source codes, just compile each of them into object files and link them together.
+If there are multiple shared libraries with internal dependencies, just do what you do for a single dynamic library, and remember to inform the non-standard library locations to the runtime.
+
+For more information of shared library, please refer to [this blog](https://henry2004y.github.io/2020-04-04-shared-library/).
+
 ## Basic Usages
 
 Input a single precision value, returns doubled value:
@@ -125,6 +130,25 @@ ccall(sym, Cvoid,
       str1, str2, sizeof(str1), sizeof(str2))
 Libdl.dlclose(lib)
 ```
+
+## MPI Support
+
+The shared libraries can contain MPI support.
+
+One minimal example can be found in [ex3](ex3):
+```
+$ mpiexec -n 3 julia ex3/juliaCallsFortran.jl
+```
+
+Sometimes a not well-written dynamic library may contain only part of the MPI calls. For example, `MPI_Init()` may occur in the orginal main file of C/Fortran code and is excluded in the dynamic library. In these cases, you can use the `MPI.jl` package in Julia:
+```julia
+using MPI
+MPI.Init()
+ccall((:__batl_tree_MOD_test_tree, "./libBATL.so"), Cvoid,())
+MPI.Finalize()
+```
+
+Julia's MPI wrapper over the C library can work together with C/Fortran MPI calls, which is truly amazing.
 
 ## Difference between `Ptr` and `Ref`
 

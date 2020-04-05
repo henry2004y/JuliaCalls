@@ -35,6 +35,17 @@ function foo(x)
   foo = x * 2
 end function foo
 
+real function factorial(n)
+  integer, intent(in) :: n
+  ! n! = \Gamma(n+1)
+  integer :: k
+  !----------
+  factorial = 1.0
+  do k=2, n
+     factorial = factorial*real(k)
+  end do
+end function factorial
+
 subroutine bar(x, a, b)
   integer, intent(in) :: x
   integer, intent(out) :: a, b
