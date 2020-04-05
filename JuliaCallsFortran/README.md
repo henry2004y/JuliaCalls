@@ -24,6 +24,8 @@ For more information of shared library, please refer to [this blog](https://henr
 
 ## Basic Usages
 
+Note that Fortran is case insensitive: all the function and variable names are lowercases in the library calls.
+
 Input a single precision value, returns doubled value:
 ```julia
 r1 = ccall((:__simplemodule_MOD_foo, "./simplemodule.so"), Int32,
