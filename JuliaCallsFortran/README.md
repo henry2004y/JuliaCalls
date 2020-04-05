@@ -6,7 +6,7 @@ The major differences are:
 1. By default Fortran subroutines and functions has an underscore in the front
 in the object files. `iso_c_binding` eliminates this behavior.
 2. Fortran allocatable arrays has descriptors besides raw data, which prohibits
-Julia from getting the right values.
+Julia from getting the right values. `c_loc` function from the package allows one to get the correct C pointer to the array.
 
 Future Fortran libraries should always follow the `iso_c_binding` to allow seamless
 interoperability with other languages.
