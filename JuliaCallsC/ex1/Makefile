@@ -2,7 +2,9 @@ CC=gcc
 
 CFLAGS=-c -Wall -Werror -fpic
 
-MYLOC=/Users/hyzhou/Documents/Computer/Julia/JuliaCalls/JuliaCallsC/ex1
+MYLOC=/Users/hyzhou/Documents/Computer/Julia/JuliaCalls/JuliaCallsC/ex2
+
+SHARED_LIB = libfoo.so
 
 SOURCES=foo.c
 OBJECTS=$(SOURCES:.c=.o)
@@ -11,7 +13,7 @@ OBJECTS=$(SOURCES:.c=.o)
 	$(CC) $(CFLAGS) $< -o $@
 
 lib: $(OBJECTS)
-	$(CC) -shared -o libfoo.so $(OBJECTS)
+	$(CC) -shared -o $(SHARED_LIB) $(OBJECTS)
 
 test:
 	$(CC) -L$(MYLOC) -Wall -o test main.c -lfoo
