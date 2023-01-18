@@ -13,7 +13,7 @@ interoperability with other languages.
 
 ## Compile Shared Libraries
 
-```
+```shell
 $ gfortran simplemodule.f95 -o simplemodule.so -shared -fPIC
 ```
 
@@ -101,18 +101,18 @@ s = unsafe_wrap(Vector{Cfloat}, ps, 10)
 ```
 
 Note that you cannot correctly access `s` directly through `cglobal`. I don't know why. However, the pointer return by
-```
+```julia
 s = cglobal((:__simplemodule_MOD_s, "./simplemodule.so"), Float32)
 ```
 can be successfully recognized by Fortran:
-```
+```julia
 ccall((:__simplemodule_MOD_print_var, "./simplemodule.so"), Cvoid,
       (Ptr{Float64},), s)
 # Display an array of [1.0,2.0,...,10.0]
 ```
 
 Finally, there is currently no direct way of accessing Fortran parameters. A workaround is to add some Fortran functions (e.g. `get_hparam`) to copy the value from the parameters to variables:
-```
+```julia
 a = ccall((:get_hparam, "./simplemodule.so"), Cint, ())
 ```
 
@@ -121,7 +121,7 @@ This is about it. As you can see, things can go wrong pretty easily.
 ## Explicitly Import the Library
 
 You can explicitly import the shared library by using `Libdl`:
-```
+```julia
 using Libdl
 str1 = "foo"
 str2 = "bar"
@@ -138,7 +138,7 @@ Libdl.dlclose(lib)
 The shared libraries can contain MPI support.
 
 One minimal example can be found in [ex3](ex3):
-```
+```shell
 $ mpiexec -n 3 julia ex3/juliaCallsFortran.jl
 ```
 
