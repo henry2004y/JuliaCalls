@@ -1,3 +1,0 @@
-mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/Users/hyzhou/.julia/artifacts/f598f80bcf73532d9dd4a75d657d00235079a949 ../
-cmake --build . --config Release
